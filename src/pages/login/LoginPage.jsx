@@ -8,8 +8,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [seedStatus, setSeedStatus] = useState("");
-  const [seedLoading, setSeedLoading] = useState(false);
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -47,28 +46,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleSeedDatabase = async () => {
-    setSeedLoading(true);
-    setSeedStatus("");
-    setError("");
 
-    try {
-      const res = await fetch("https://server.familiess.com/api/auth/seed", {
-        method: "POST",
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message || "Seeding failed");
-      }
-      setSeedStatus("seeded");
-      setEmail("admin@example.com");
-      setPassword("admin123");
-    } catch (err) {
-      setError("Failed to seed database: " + err.message);
-    } finally {
-      setSeedLoading(false);
-    }
-  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12 sm:px-6 lg:px-8 font-sans">
@@ -97,12 +75,7 @@ export default function LoginPage() {
           </div>
         )}
 
-        {seedStatus === "seeded" && (
-          <div className="flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-4 text-sm text-emerald-400">
-            <CheckCircle className="h-5 w-5 shrink-0" />
-            <span>Database seeded! Try admin@example.com / admin123</span>
-          </div>
-        )}
+
 
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
           <div className="space-y-4 rounded-md">
@@ -164,20 +137,7 @@ export default function LoginPage() {
           </div>
         </form>
 
-        <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-slate-300"></div>
-          <span className="flex-shrink mx-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Or Demo Setup</span>
-          <div className="flex-grow border-t border-slate-300"></div>
-        </div>
 
-        <button
-          onClick={handleSeedDatabase}
-          disabled={seedLoading}
-          className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 py-3 px-4 text-sm font-semibold text-purple-400 hover:text-purple-300 transition-all duration-200 disabled:opacity-50"
-        >
-          <Database className="h-4 w-4" />
-          {seedLoading ? "Seeding Database..." : "Seed Database (Mock Data)"}
-        </button>
       </div>
     </div>
   );

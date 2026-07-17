@@ -125,8 +125,8 @@ export default function UsersPage() {
         <button
           onClick={() => setActiveTab("users")}
           className={`pb-3 text-sm font-semibold border-b-2 transition-all duration-200 ${activeTab === "users"
-              ? "border-purple-500 text-purple-550 font-bold text-purple-500"
-              : "border-transparent text-slate-600 hover:text-slate-800"
+            ? "border-purple-500 text-purple-550 font-bold text-purple-500"
+            : "border-transparent text-slate-600 hover:text-slate-800"
             }`}
         >
           Registered Users ({users.filter(u => u.role !== "admin").length})
@@ -134,8 +134,8 @@ export default function UsersPage() {
         <button
           onClick={() => setActiveTab("admins")}
           className={`pb-3 text-sm font-semibold border-b-2 transition-all duration-200 ${activeTab === "admins"
-              ? "border-purple-500 text-purple-550 font-bold text-purple-500"
-              : "border-transparent text-slate-600 hover:text-slate-800"
+            ? "border-purple-500 text-purple-550 font-bold text-purple-500"
+            : "border-transparent text-slate-600 hover:text-slate-800"
             }`}
         >
           Administrators ({users.filter(u => u.role === "admin").length})
@@ -187,7 +187,7 @@ export default function UsersPage() {
               <tr>
                 <th className="px-6 py-4">Name / ID</th>
                 <th className="px-6 py-4">Gender & Age</th>
-                <th className="px-6 py-4">Location</th>
+                <th className="px-6 py-4">Mobile Number</th>
                 <th className="px-6 py-4">Tier Status</th>
                 <th className="px-6 py-4">Verification</th>
                 <th className="px-6 py-4 text-right">Actions</th>
@@ -222,7 +222,7 @@ export default function UsersPage() {
                         )}
                       </td>
                       <td className="px-6 py-4 text-slate-600">
-                        {user.profile?.location || "—"}
+                        {user.phone || "—"}
                       </td>
                       <td className="px-6 py-4">
                         {isPremium ? (
@@ -238,8 +238,8 @@ export default function UsersPage() {
                         <button
                           onClick={() => toggleVerification(user._id, user.isVerified)}
                           className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold border transition-all duration-200 ${user.isVerified
-                              ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
-                              : "bg-white text-slate-600 border-slate-300 hover:text-slate-800"
+                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20 hover:bg-emerald-500/20"
+                            : "bg-white text-slate-600 border-slate-300 hover:text-slate-800"
                             }`}
                         >
                           {user.isVerified ? (

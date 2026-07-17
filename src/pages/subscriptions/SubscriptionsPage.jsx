@@ -31,6 +31,7 @@ export default function SubscriptionsPage() {
   const [directMessaging, setDirectMessaging] = useState(false);
   const [videoCalling, setVideoCalling] = useState(false);
   const [prioritySupport, setPrioritySupport] = useState(false);
+  const [managedByUs, setManagedByUs] = useState(false);
   const [viewProfilesPerDay, setViewProfilesPerDay] = useState("10");
   const [isActive, setIsActive] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -70,6 +71,7 @@ export default function SubscriptionsPage() {
     setDirectMessaging(plan.directMessaging);
     setVideoCalling(plan.videoCalling);
     setPrioritySupport(plan.prioritySupport);
+    setManagedByUs(plan.managedByUs || false);
     setViewProfilesPerDay(plan.viewProfilesPerDay.toString());
     setIsActive(plan.isActive);
   };
@@ -83,6 +85,7 @@ export default function SubscriptionsPage() {
     setDirectMessaging(false);
     setVideoCalling(false);
     setPrioritySupport(false);
+    setManagedByUs(false);
     setViewProfilesPerDay("10");
     setIsActive(true);
   };
@@ -99,6 +102,7 @@ export default function SubscriptionsPage() {
       directMessaging,
       videoCalling,
       prioritySupport,
+      managedByUs,
       viewProfilesPerDay: parseInt(viewProfilesPerDay),
       isActive,
     };
@@ -254,11 +258,22 @@ export default function SubscriptionsPage() {
                           )}
                         </div>
 
-                        <div className="flex items-center justify-between text-xs">
+                        <div className="flex items-center justify-between text-xs border-b border-slate-200 pb-2">
                           <div className="flex items-center gap-2 text-slate-700">
                             <LifeBuoy className="h-3.5 w-3.5 text-amber-400" /> Voice Calls:
                           </div>
                           {plan.prioritySupport ? (
+                            <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                          ) : (
+                            <XCircle className="h-4 w-4 text-slate-500" />
+                          )}
+                        </div>
+
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-2 text-slate-700">
+                            <Sparkles className="h-3.5 w-3.5 text-pink-400" /> Managed by Us:
+                          </div>
+                          {plan.managedByUs ? (
                             <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                           ) : (
                             <XCircle className="h-4 w-4 text-slate-500" />
@@ -429,6 +444,23 @@ export default function SubscriptionsPage() {
                   />
                   <label htmlFor="prioritySupport" className="text-xs text-slate-700 cursor-pointer select-none">
                     Enable Voice Calls
+                  </label>
+                </div>
+
+                {/* Managed By Us Toggle */}
+                <div className="flex items-center gap-3 bg-slate-200/80 p-3 rounded-lg border border-zinc-800/50 hover:border-zinc-700/50 transition-colors">
+                  <div className="p-2 bg-pink-500/10 rounded-md text-pink-400">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <input
+                    type="checkbox"
+                    id="managedByUs"
+                    checked={managedByUs}
+                    onChange={(e) => setManagedByUs(e.target.checked)}
+                    className="w-4 h-4 rounded border-slate-400 bg-white text-pink-500 focus:ring-pink-500/20 focus:ring-offset-0 transition-colors cursor-pointer"
+                  />
+                  <label htmlFor="managedByUs" className="text-xs text-slate-700 cursor-pointer select-none">
+                    Enable Managed By Us
                   </label>
                 </div>
               </div>

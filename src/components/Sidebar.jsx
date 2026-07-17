@@ -11,7 +11,9 @@ import {
   X,
   CheckSquare,
   FileText,
-  BarChart3
+  BarChart3,
+  Wallet,
+  Settings
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -42,12 +44,15 @@ export default function Sidebar() {
 
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Manage Users", href: "/users", icon: Users },
+    { name: "Users", href: "/users", icon: Users },
+    { name: "Manage Users", href: "/manage-users", icon: Users },
     { name: "Pending Approvals", href: "/approvals", icon: CheckSquare },
     { name: "Subscription Plans", href: "/subscriptions", icon: CreditCard },
     { name: "Active Subscriptions", href: "/active-subscriptions", icon: BadgePercent },
+    { name: "Payments", href: "/payments", icon: Wallet },
     // { name: "Content Manager", href: "/content", icon: FileText },
-    // { name: "Revenue & Coupons", href: "/revenue", icon: BarChart3 },
+    { name: "Revenue & Coupons", href: "/revenue", icon: BarChart3 },
+    { name: "Settings", href: "/settings", icon: Settings },
   ];
 
   return (
