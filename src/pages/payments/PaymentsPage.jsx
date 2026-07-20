@@ -98,13 +98,14 @@ export default function PaymentsPage() {
           <table className="w-full text-left text-sm text-slate-600">
             <thead className="border-b border-slate-200 bg-slate-50 text-xs font-semibold uppercase tracking-wider text-slate-500">
               <tr>
-                <th className="px-6 py-4">Transaction ID</th>
-                <th className="px-6 py-4">User</th>
-                <th className="px-6 py-4">Plan</th>
-                <th className="px-6 py-4">Amount</th>
-                <th className="px-6 py-4">Date</th>
-                <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+                <th className="px-6 py-4 whitespace-nowrap">Transaction ID</th>
+                <th className="px-6 py-4 whitespace-nowrap">User</th>
+                <th className="px-6 py-4 whitespace-nowrap">Plan</th>
+                <th className="px-6 py-4 whitespace-nowrap">Amount</th>
+                <th className="px-6 py-4 whitespace-nowrap">Date</th>
+                <th className="px-6 py-4 whitespace-nowrap">Screenshot</th>
+                <th className="px-6 py-4 whitespace-nowrap">Status</th>
+                <th className="px-6 py-4 text-right whitespace-nowrap">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
@@ -116,15 +117,17 @@ export default function PaymentsPage() {
                 </tr>
               ) : payments.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="px-6 py-8 text-center text-slate-500">
+                  <td colSpan="8" className="px-6 py-8 text-center text-slate-500">
                     No payments found.
                   </td>
                 </tr>
               ) : (
-                payments.map((payment) => (
+                payments.map((payment) => {
+                  const imageUrl = payment.screenshotUrl?.startsWith('http') ? payment.screenshotUrl : `https://server.familiess.com/media_uploads/${payment.screenshotUrl}`;
+                  return (
                   <tr key={payment._id} className="hover:bg-slate-50/50 transition-colors">
-                    <td className="px-6 py-4 font-mono text-xs">{payment.transactionId || "N/A"}</td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 font-mono text-xs whitespace-nowrap">{payment.transactionId || "N/A"}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       {payment.user ? (
                         <div>
                           <div className="font-medium text-slate-900">
@@ -136,19 +139,28 @@ export default function PaymentsPage() {
                         "Unknown User"
                       )}
                     </td>
-                    <td className="px-6 py-4 font-medium text-slate-900">
+                    <td className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap">
                       {payment.plan ? payment.plan.name : "N/A"}
                     </td>
-                    <td className="px-6 py-4 font-semibold text-slate-900">
+                    <td className="px-6 py-4 font-semibold text-slate-900 whitespace-nowrap">
                       ₹{payment.amount}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {new Date(payment.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {payment.screenshotUrl ? (
+                        <a href={imageUrl} target="_blank" rel="noreferrer" className="text-purple-600 hover:text-purple-700 font-semibold text-xs underline">
+                          View Proof
+                        </a>
+                      ) : (
+                        <span className="text-xs text-slate-400 italic">None</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
                       {getStatusBadge(payment.status)}
                     </td>
-                    <td className="px-6 py-4 text-right">
+                    <td className="px-6 py-4 text-right whitespace-nowrap">
                       {payment.status === "pending" && (
                         <div className="flex items-center justify-end gap-2">
                           <button
@@ -167,7 +179,7 @@ export default function PaymentsPage() {
                       )}
                     </td>
                   </tr>
-                ))
+                )})
               )}
             </tbody>
           </table>

@@ -99,12 +99,12 @@ export default function ActiveSubscriptionsPage() {
           <table className="w-full border-collapse text-left text-sm text-slate-700">
             <thead className="bg-slate-200/80 text-xs font-semibold uppercase tracking-wider text-slate-600 border-b border-slate-200">
               <tr>
-                <th className="px-6 py-4">Customer</th>
-                <th className="px-6 py-4">Plan Name</th>
-                <th className="px-6 py-4">Amount Paid</th>
-                <th className="px-6 py-4">Transaction Details</th>
-                <th className="px-6 py-4">Period</th>
-                <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4 whitespace-nowrap">Customer</th>
+                <th className="px-6 py-4 whitespace-nowrap">Plan Name</th>
+                <th className="px-6 py-4 whitespace-nowrap">Amount Paid</th>
+                <th className="px-6 py-4 whitespace-nowrap">Transaction Details</th>
+                <th className="px-6 py-4 whitespace-nowrap">Period</th>
+                <th className="px-6 py-4 whitespace-nowrap">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
@@ -121,23 +121,23 @@ export default function ActiveSubscriptionsPage() {
                   return (
                     <tr key={pay._id} className="hover:bg-zinc-900/10 transition-colors">
                       {/* Customer Info */}
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="font-semibold text-slate-900">{name}</div>
                         <div className="text-xs text-slate-500 mt-0.5">{pay.user?.email || pay.user?.phone || "No Identifier"}</div>
                       </td>
 
                       {/* Plan Name */}
-                      <td className="px-6 py-4 font-medium text-slate-700">
+                      <td className="px-6 py-4 font-medium text-slate-700 whitespace-nowrap">
                         {pay.plan?.name || "Standard Membership"}
                       </td>
 
                       {/* Amount */}
-                      <td className="px-6 py-4 font-bold text-slate-900">
+                      <td className="px-6 py-4 font-bold text-slate-900 whitespace-nowrap">
                         ₹{pay.amount.toLocaleString("en-IN")}
                       </td>
 
                       {/* Transaction ID */}
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-1.5 font-mono text-xs text-slate-600">
                           <CreditCard className="h-3.5 w-3.5 text-slate-500" />
                           {pay.transactionId}
@@ -145,7 +145,7 @@ export default function ActiveSubscriptionsPage() {
                       </td>
 
                       {/* Period */}
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center gap-1.5 text-xs text-slate-700">
                           <Calendar className="h-3.5 w-3.5 text-slate-500" />
                           <span>{formatDate(pay.startDate)} - {formatDate(pay.expiryDate)}</span>
@@ -153,7 +153,7 @@ export default function ActiveSubscriptionsPage() {
                       </td>
 
                       {/* Status */}
-                      <td className="px-6 py-4">
+                      <td className="px-6 py-4 whitespace-nowrap">
                         {expired ? (
                           <span className="inline-flex items-center gap-1 rounded-full bg-slate-300 text-slate-600 px-2 py-0.5 text-xs font-semibold border border-slate-400">
                             <AlertCircle className="h-3 w-3" />

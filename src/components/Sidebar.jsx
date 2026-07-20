@@ -51,7 +51,7 @@ export default function Sidebar() {
     { name: "Active Subscriptions", href: "/active-subscriptions", icon: BadgePercent },
     { name: "Payments", href: "/payments", icon: Wallet },
     // { name: "Content Manager", href: "/content", icon: FileText },
-    { name: "Revenue & Coupons", href: "/revenue", icon: BarChart3 },
+    // { name: "Revenue & Coupons", href: "/revenue", icon: BarChart3 },
     { name: "Settings", href: "/settings", icon: Settings },
   ];
 
@@ -69,10 +69,18 @@ export default function Sidebar() {
         </button>
       </div>
 
+      {/* Overlay for mobile */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-slate-900/50 backdrop-blur-sm lg:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
       {/* Sidebar Container */}
       <aside className={`
         fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-300 bg-slate-50 text-slate-800 transition-transform duration-300 lg:static lg:translate-x-0
-        ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+        ${isOpen ? "translate-x-0" : "-translate-x-full"}
       `}>
         {/* Logo / Header */}
         <div className="flex h-16 items-center gap-2.5 px-6 border-b border-slate-200 bg-white/50 backdrop-blur-md">
