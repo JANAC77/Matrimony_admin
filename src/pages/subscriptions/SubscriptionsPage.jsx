@@ -30,7 +30,7 @@ export default function SubscriptionsPage() {
   const [matchesPerDay, setMatchesPerDay] = useState("10");
   const [directMessaging, setDirectMessaging] = useState(false);
   const [videoCalling, setVideoCalling] = useState(false);
-  const [prioritySupport, setPrioritySupport] = useState(false);
+  const [voiceCalling, setVoiceCalling] = useState(false);
   const [managedByUs, setManagedByUs] = useState(false);
   const [viewProfilesPerDay, setViewProfilesPerDay] = useState("10");
   const [isActive, setIsActive] = useState(true);
@@ -106,7 +106,7 @@ export default function SubscriptionsPage() {
     setMatchesPerDay(plan.matchesPerDay.toString());
     setDirectMessaging(plan.directMessaging);
     setVideoCalling(plan.videoCalling);
-    setPrioritySupport(plan.prioritySupport);
+    setVoiceCalling(plan.voiceCalling);
     setManagedByUs(plan.managedByUs || false);
     setViewProfilesPerDay(plan.viewProfilesPerDay.toString());
     setIsActive(plan.isActive);
@@ -120,7 +120,7 @@ export default function SubscriptionsPage() {
     setMatchesPerDay("10");
     setDirectMessaging(false);
     setVideoCalling(false);
-    setPrioritySupport(false);
+    setVoiceCalling(false);
     setManagedByUs(false);
     setViewProfilesPerDay("10");
     setIsActive(true);
@@ -137,7 +137,7 @@ export default function SubscriptionsPage() {
       matchesPerDay: parseInt(matchesPerDay),
       directMessaging,
       videoCalling,
-      prioritySupport,
+      voiceCalling,
       managedByUs,
       viewProfilesPerDay: parseInt(viewProfilesPerDay),
       isActive,
@@ -301,7 +301,7 @@ export default function SubscriptionsPage() {
                             <div className="flex items-center gap-2 text-slate-700">
                               <LifeBuoy className="h-3.5 w-3.5 text-amber-400" /> Voice Calls:
                             </div>
-                            {plan.prioritySupport ? (
+                            {plan.voiceCalling ? (
                               <CheckCircle2 className="h-4 w-4 text-emerald-400" />
                             ) : (
                               <XCircle className="h-4 w-4 text-slate-500" />
@@ -572,12 +572,12 @@ export default function SubscriptionsPage() {
                   </div>
                   <input
                     type="checkbox"
-                    id="prioritySupport"
-                    checked={prioritySupport}
-                    onChange={(e) => setPrioritySupport(e.target.checked)}
+                    id="voiceCalling"
+                    checked={voiceCalling}
+                    onChange={(e) => setVoiceCalling(e.target.checked)}
                     className="w-4 h-4 rounded border-slate-400 bg-white text-amber-500 focus:ring-amber-500/20 focus:ring-offset-0 transition-colors cursor-pointer"
                   />
-                  <label htmlFor="prioritySupport" className="text-xs text-slate-700 cursor-pointer select-none">
+                  <label htmlFor="voiceCalling" className="text-xs text-slate-700 cursor-pointer select-none">
                     Enable Voice Calls
                   </label>
                 </div>
