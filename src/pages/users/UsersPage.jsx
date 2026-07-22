@@ -8,8 +8,11 @@ import {
   UserX,
   Loader2,
   Award,
-  Filter
+  Filter,
+  UserPlus,
+  Edit
 } from "lucide-react";
+import AddUserModal from "./AddUserModal";
 
 
 
@@ -21,6 +24,8 @@ export default function UsersPage() {
   const [filterPremium, setFilterPremium] = useState("all"); // all, premium, free
   const [activeTab, setActiveTab] = useState("users"); // users, admins
   const [viewUser, setViewUser] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
 
   const getImageUrl = (imagePath) => {
     if (!imagePath) return null;
@@ -122,9 +127,18 @@ export default function UsersPage() {
 
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">User Accounts</h1>
-        <p className="text-sm text-slate-600">View, search, verify, and delete user profiles</p>
+      <div className="mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">User Accounts</h1>
+          <p className="text-sm text-slate-600">View, search, verify, and delete user profiles</p>
+        </div>
+        <button
+          onClick={() => setShowAddModal(true)}
+          className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-purple-700 transition-colors shadow-sm"
+        >
+          <UserPlus className="h-4 w-4" />
+          Add User
+        </button>
       </div>
 
       {/* Tab Selection */}
@@ -221,6 +235,9 @@ export default function UsersPage() {
                             Admin
                           </span>
                         )}
+                        <div className="text-[10px] text-slate-400 mt-1">
+                          Step: {user.signupStep || 1} • {user.is_onboarding_complete ? 'Complete' : 'Pending'}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className="text-slate-700">{user.profile?.gender || "—"}</span>
@@ -264,6 +281,13 @@ export default function UsersPage() {
                       </td>
                       <td className="px-6 py-4 text-right whitespace-nowrap">
                         <div className="flex justify-end gap-2">
+                          <button
+                            onClick={(e) => { e.stopPropagation(); setEditingUser(user); setShowAddModal(true); }}
+                            title="Edit User"
+                            className="p-1.5 rounded-lg border border-purple-500/20 bg-purple-500/5 hover:bg-purple-500/10 text-purple-500 transition-all"
+                          >
+                            <Edit className="h-4 w-4" />
+                          </button>
                           <button
                             onClick={(e) => { e.stopPropagation(); toggleVerification(user._id, user.isVerified); }}
                             title={user.isVerified ? "Revoke Verification" : "Verify User"}
@@ -419,6 +443,25 @@ export default function UsersPage() {
           </div>
         </div>
       )}
+
+      {/* Add User Modal */}
+      <AddUserModal
+        isOpen={showAddModal}
+        editingUser={editingUser}
+        onClose={() => {
+          setShowAddModal(false);
+          setEditingUser(null);
+        }}
+        onUserAdded={(newUser) => {
+          setUsers(prev => [newUser, ...prev]);
+        }}
+        onUserUpdated={(updatedUser) => {
+          setUsers(prev => prev.map(u => u._id === updatedUser._id ? updatedUser : u));
+          if (viewUser && viewUser._id === updatedUser._id) {
+            setViewUser(updatedUser);
+          }
+        }}
+      />
     </>
   );
 }
