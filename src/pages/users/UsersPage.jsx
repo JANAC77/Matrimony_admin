@@ -29,8 +29,20 @@ export default function UsersPage() {
 
   const getImageUrl = (imagePath) => {
     if (!imagePath) return null;
+    if (typeof imagePath === 'object' && imagePath !== null) {
+      imagePath = imagePath.url;
+    }
+    if (!imagePath) return null;
     if (imagePath.startsWith("http")) return imagePath;
+    if (imagePath.startsWith("/media_uploads/")) return `https://server.familiess.com${imagePath}`;
     return `https://server.familiess.com/media_uploads/${imagePath}`;
+  };
+
+  const getProfilePhoto = (user) => {
+    const photos = user.profile?.rawPhotos || user.profile?.photos;
+    if (!photos || photos.length === 0) return null;
+    const photo = photos[0];
+    return typeof photo === 'object' && photo !== null ? photo.url : photo;
   };
 
   const fetchUsers = async () => {
@@ -336,8 +348,16 @@ export default function UsersPage() {
               <div className="flex flex-col md:flex-row gap-8 mb-8 border-b border-slate-100 pb-8">
                 <div className="flex-shrink-0 mx-auto md:mx-0">
                   <div className="h-40 w-40 overflow-hidden rounded-full border-4 border-slate-100 shadow-sm bg-slate-200">
-                    {viewUser.profile?.photos?.[0] ? (
-                      <img src={getImageUrl(viewUser.profile.photos[0])} alt="Profile" className="h-full w-full object-cover" />
+                    {getProfilePhoto(viewUser) ? (
+                      <img 
+                        src={getImageUrl(getProfilePhoto(viewUser))} 
+                        alt="Profile" 
+                        className="h-full w-full object-cover"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(viewUser.profile?.name || viewUser.email || 'U')}&background=random`;
+                        }}
+                      />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-slate-500 text-5xl font-bold">
                         {(viewUser.profile?.name || viewUser.email || "U")[0].toUpperCase()}

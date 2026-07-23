@@ -13,8 +13,10 @@ import {
   FileText,
   BarChart3,
   Wallet,
-  Settings
+  Settings,
+  Image
 } from "lucide-react";
+import logo from "../assets/logo.png";
 
 export default function Sidebar() {
   const location = useLocation();
@@ -47,6 +49,7 @@ export default function Sidebar() {
     { name: "Users", href: "/users", icon: Users },
     { name: "Manage Users", href: "/manage-users", icon: Users },
     { name: "Pending Approvals", href: "/approvals", icon: CheckSquare },
+    { name: "Image Verification", href: "/image-approvals", icon: Image },
     { name: "Subscription Plans", href: "/subscriptions", icon: CreditCard },
     { name: "Active Subscriptions", href: "/active-subscriptions", icon: BadgePercent },
     { name: "Payments", href: "/payments", icon: Wallet },
@@ -60,9 +63,7 @@ export default function Sidebar() {
       {/* Mobile Header */}
       <div className="flex items-center justify-between bg-white px-4 py-3 text-slate-900 lg:hidden">
         <div className="flex items-center gap-2">
-          <span className="font-semibold text-lg tracking-wider bg-gradient-to-r from-violet-400 to-fuchsia-500 bg-clip-text text-transparent">
-            Matrimony Admin
-          </span>
+          <img src={logo} alt="Familiess Matrimony" className="h-8 object-contain" />
         </div>
         <button onClick={() => setIsOpen(!isOpen)} className="text-slate-600 hover:text-slate-900">
           {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -84,14 +85,7 @@ export default function Sidebar() {
       `}>
         {/* Logo / Header */}
         <div className="flex h-16 items-center gap-2.5 px-6 border-b border-slate-200 bg-white/50 backdrop-blur-md">
-          <div className="flex flex-col">
-            <span className="font-bold text-sm tracking-wide text-slate-900 uppercase">
-              Matrimony
-            </span>
-            <span className="text-xs font-medium text-purple-500">
-              Admin Portal
-            </span>
-          </div>
+          <img src={logo} alt="Familiess Matrimony" className="h-10 w-auto object-contain mx-auto" />
         </div>
 
         {/* Navigation */}

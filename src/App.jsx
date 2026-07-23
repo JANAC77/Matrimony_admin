@@ -11,6 +11,7 @@ import ContentManagerPage from "./pages/content/ContentManagerPage";
 import ActiveSubscriptionsPage from "./pages/active-subscriptions/ActiveSubscriptionsPage";
 import PaymentsPage from "./pages/payments/PaymentsPage";
 import SettingsPage from "./pages/settings/SettingsPage";
+import ImageApprovalsPage from "./pages/image-approvals/ImageApprovalsPage";
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/revenue" element={<RevenuePage />} />
           <Route path="/subscriptions" element={<SubscriptionsPage />} />
           <Route path="/approvals" element={<ApprovalsPage />} />
+          <Route path="/image-approvals" element={<ImageApprovalsPage />} />
           <Route path="/content" element={<ContentManagerPage />} />
           <Route path="/active-subscriptions" element={<ActiveSubscriptionsPage />} />
           <Route path="/payments" element={<PaymentsPage />} />
